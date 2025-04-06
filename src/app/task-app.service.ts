@@ -1,8 +1,8 @@
 //handles all the HTTP requests as shown in the wk11 inclass
 import { Injectable } from '@angular/core';
-// import httpclient and behavioursubject 
+// import httpclient
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,42 +12,24 @@ export class TaskAppService {
   private apiUrl = 'http://127.0.0.1:8887';
 
 
-  //task list being held here ..... private taskList = new BehaviorSubject<any[]>([]);
-  private taskList = new BehaviorSubject<any[]>([]); 
-  
+  constructor(private http: HttpClient) {}
 
+    //methods 
 
-  //subscribes to component = taskList.asObservable 
-
-gr8tasks = this.taskList.asObservable();
-
-  constructor(private http: HttpClient) { }
-
-    //fetch tasks from server 
-
-    fetchTasks(){
-      this.http.get<any[]>(this.apiUrl).subscribe(data => {
-        this.taskList.next(data);
-      });
-    }
-
-  //save new task
-
-  addTask (task: any){
-    return this.http.post(this.apiUrl, task);
+  createTask(taskData: any): Observable<any>{
+    return this.http.post(`${this.apiUrl}/tasks`, taskData);
   }
 
-  //update task status = completed to true 
-
-  updateTask(id: string, updates:any){
-    return this.http.put(`${this.apiUrl}/${id}`, updates);
+  getTasks(filter?: any): Observable<any>{
+    return this.http.post(`${this.apiUrl}/allTasks`, {params: filter});
   }
 
-  //delete task (do we want to do delete?)
+  getTasksByCategory(category: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?category=${category}`);
+  }
 
-  
-
-
-
+  updateTask(taskId: string, updates:any): Observable<any>{
+    return this.http.put(`${this.apiUrl}/${taskId}`, updates);
+  }
 
 }
