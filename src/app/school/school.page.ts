@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-school',
   templateUrl: './school.page.html',
   styleUrls: ['./school.page.scss'],
+  standalone: false,
 })
 export class SchoolPage implements OnInit {
 

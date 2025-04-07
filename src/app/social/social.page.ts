@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-social',
   templateUrl: './social.page.html',
   styleUrls: ['./social.page.scss'],
+  standalone: false,
 })
 export class SocialPage implements OnInit {
 

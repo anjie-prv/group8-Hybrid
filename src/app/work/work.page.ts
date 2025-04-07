@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-work',
   templateUrl: './work.page.html',
   styleUrls: ['./work.page.scss'],
+  standalone: false,
 })
 export class WorkPage implements OnInit {
 
